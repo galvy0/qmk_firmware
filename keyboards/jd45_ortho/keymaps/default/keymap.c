@@ -127,9 +127,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // combos
 const uint16_t PROGMEM GUI_combo[] = {KC_TAB, KC_W, COMBO_END};
 const uint16_t PROGMEM ESC_combo[] = {KC_TAB, KC_Q, COMBO_END};
+const uint16_t PROGMEM BSL_combo[] = {KC_P, KC_O, COMBO_END};
+const uint16_t PROGMEM ENT_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM QUO_combo[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM FTW_combo[] = {KC_LBRC, KC_RBRC, COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(GUI_combo,KC_LGUI),
   COMBO(ESC_combo,KC_ESC),
+  COMBO(BSL_combo,KC_BSLS),
+  COMBO(ENT_combo,KC_ENT),
+  COMBO(QUO_combo,KC_QUOT),
+  COMBO(FTW_combo,KC_F12),
 };
 layer_state_t layer_state_set_user(layer_state_t state) {
     combo_enable();
@@ -193,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|        |-----------------------------------------------------|
       KC_LGUI,   VIMQT,   VIMSV, _______, _______, _______,          _______, KC_HOME,  KC_END, KC_PGUP, KC_PGDN,   RPIPE,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,_______,     KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______,
+      _______, _______,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,_______,     KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,   RPIPE, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, KC_BSPC,          _______, _______,   RASGN, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
@@ -203,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|        |-----------------------------------------------------|
        KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_CAPS,    KC_7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,           KC_F12,    KC_4,    KC_5,    KC_6, _______, _______,
+      KC_CAPS,    KC_7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,           KC_F12,    KC_4,    KC_5,    KC_6, KC_BSPC, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,             KC_0,    KC_1,    KC_2,    KC_3, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|

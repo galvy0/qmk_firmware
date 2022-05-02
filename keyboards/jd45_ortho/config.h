@@ -46,6 +46,6 @@
 #define RETRO_TAPPING_PER_KEY
 
 // combo
-#define COMBO_COUNT 2
-#define COMBO_TERM 100
+#define COMBO_COUNT 6
+#define COMBO_TERM 50
 
