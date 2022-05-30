@@ -91,6 +91,7 @@ bool oled_task_user(void) {
 enum custom_keycodes {
   RPIPE = SAFE_RANGE, RASGN, // R macros
   KORLN,
+  CAPZ,CTRLB, // lower row mod alternatives
   VIMSV,VIMQT // vim macros
 };
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
@@ -120,16 +121,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(":q!");
       } 
       break;
+    case CAPZ:
+      if (record->event.pressed){
+        SEND_STRING("Z");
+      }
+      break;
+    case CTRLB:
+      if (record->event.pressed){
+        SEND_STRING(SS_LCTL("B"));
+      }
+      break;
   }    
   return true;
 };
  
 // combos
-const uint16_t PROGMEM GUI_combo[] = {KC_TAB, KC_W, COMBO_END};
-const uint16_t PROGMEM ESC_combo[] = {KC_TAB, KC_Q, COMBO_END};
-const uint16_t PROGMEM BSL_combo[] = {KC_J, KC_P, COMBO_END};
-const uint16_t PROGMEM ENT_combo[] = {KC_J, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM QUO_combo[] = {KC_J, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM GUI_combo[] = {KC_A, KC_W, COMBO_END};
+const uint16_t PROGMEM ESC_combo[] = {KC_Q, KC_W, COMBO_END};
+
+const uint16_t PROGMEM BSL_combo[] = {KC_O, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM ENT_combo[] = {KC_L, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM QUO_combo[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM FTW_combo[] = {KC_MINS, KC_RBRC, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -150,39 +162,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_DEF] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSLS,
+      _______,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+      _______,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,             KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,
+      _______,LSFT_T(KC_Z),KC_X,    KC_C,    KC_V,LCTL_T(KC_B),                 KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-               KC_LGUI, KC_LALT,MO(L_LOW),LT(L_NAV,KC_BSPC),KC_MUTE,  KC_SPC,MO(L_RAI),KC_RALT,MO(L_SPC)
+               _______, KC_LALT,LT(L_LOW,KC_TAB),LT(L_NAV,KC_BSPC),KC_MUTE,KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT), _______
                     //|--------+--------+--------+--------|--------|--------+--------+--------+--------|
-  ), [L_GAM] = LAYOUT(
-  //|-----------------------------------------------------|        |-----------------------------------------------------|
-      _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______,   KC_UP,  KC_ENT,
-  //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,          _______, _______, _______, KC_LEFT, KC_DOWN,KC_RIGHT,
-  //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                         KC_ESC, KC_LALT, KC_SPC,MO(L_NUM), _______, _______, _______, _______,TG(L_GAM)
-                    //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_LOW] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-       KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,          _______, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC,  KC_F12,
+      _______,  KC_GRV, _______, _______, _______, _______,          _______, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,            KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,            KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
                         _______, _______, _______,  KC_DEL, _______, _______, _______, _______, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_RAI] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,          _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
+      _______, KC_TILD, _______, _______, _______, _______,          _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
@@ -192,31 +194,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------------------------------------------|        |-----------------------------------------------------|
       _______, _______, _______, _______, _______, _______,          _______, KC_HOME,  KC_END, KC_PGUP, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, _______, _______, _______, _______, _______,          KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_VOLU, _______,
+      _______, KC_CAPS, _______, _______, _______, _______,          KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_VOLU, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,          _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        KC_LOCK, _______, KC_RSFT, KC_LCTL, KC_SPC,TG(L_NUM),_______, _______,TG(L_SPC)
+                        _______, KC_LOCK, KC_RSFT, KC_LCTL, KC_SPC,TG(L_NUM),_______,TG(L_SPC), _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_NAV] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-      KC_LGUI,   VIMQT,   VIMSV, _______, _______, _______,          _______, KC_HOME,  KC_END, KC_PGUP, KC_PGDN,   RPIPE,
+      _______,   VIMQT,   VIMSV, _______, _______, _______,          _______, KC_HOME,  KC_END, KC_PGUP, KC_PGDN, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,_______,     KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,   RPIPE, _______,
+      _______, KC_LGUI,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,_______,     KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,   RPIPE, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, KC_BSPC,          _______, _______,   RASGN, _______, _______, _______,
+      _______,    CAPZ, _______, _______, _______,   CTRLB,           _______, _______,   RASGN, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                      TG(L_GAM), _______, _______, _______, KC_PSCR, _______, _______,   KORLN,TG(L_SPC)
+                        _______,TG(L_SPC),_______, _______, KC_PSCR, KC_BSPC, _______,   KORLN, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_NUM] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,             KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_CAPS,    KC_7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,           KC_F12,    KC_4,    KC_5,    KC_6, KC_BSPC, _______,
+      _______,    KC_7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,           KC_F12,    KC_4,    KC_5,    KC_6, KC_BSPC, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,             KC_0,    KC_1,    KC_2,    KC_3, _______, _______,
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,             KC_0,    KC_1,    KC_2,    KC_3, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        _______, _______, _______, _______, _______, _______, _______, _______,TG(L_NUM) 
+                        _______, _______, _______, _______, _______, _______, _______,TG(L_NUM), _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   )
 
@@ -262,6 +264,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Favor tapping 
+        case LCTL_T(KC_N):
+            return false;
+        case LCTL_T(KC_B):
+            return false;
+        case LSFT_T(KC_Z):
+            return false;
         // default true
         default:
             return true;
@@ -272,6 +280,12 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         // Favor tapping
         case LT(5,KC_BSPC):
             return false;
+        case LCTL_T(KC_N):
+            return false;
+        case LCTL_T(KC_B):
+            return false;
+        case LSFT_T(KC_Z):
+            return false;
         // default true
         default:
             return true;
@@ -279,6 +293,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case LCTL_T(KC_B):
+            return false;
         // default true - no auto-hold with double tap, but allow using hold right after using tap
         default:
             return true;
@@ -289,7 +305,13 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(3,KC_RALT):
             return true;
+        case LT(L_LOW,KC_TAB):
+            return true;
         // default false - nothing happens when you exceed tapping term but not use hold
+        case LSFT_T(KC_Z):
+            return false;
+        case LCTL_T(KC_B):
+            return false;
         default:
             return false;
     }
@@ -301,6 +323,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         // high tapping term favors tap
         case LALT_T(KC_ESC):
             return 200;
+        case LCTL_T(KC_B):
+            return 125;
+        case LCTL_T(KC_N):
+            return 125;
+        case LSFT_T(KC_Z):
+            return 125;
+        case LSFT_T(KC_X):
+            return 125;
         // default
         default:
             return 150;

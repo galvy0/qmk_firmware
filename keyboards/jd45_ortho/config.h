@@ -34,8 +34,6 @@
 
 // mod tap setting
 // global
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // per key
@@ -49,3 +47,5 @@
 #define COMBO_COUNT 6
 #define COMBO_TERM 50
 
+// auto shift
+#define AUTO_SHIFT_TIMEOUT_PER_KEY

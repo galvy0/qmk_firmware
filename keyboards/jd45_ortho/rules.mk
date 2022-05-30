@@ -24,3 +24,4 @@ LTO_ENABLE = yes
 KEY_LOCK_ENABLE = yes
 WPM_ENABLE = yes
 COMBO_ENABLE = yes
+
