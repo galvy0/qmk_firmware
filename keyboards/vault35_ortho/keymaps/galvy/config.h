@@ -20,3 +20,8 @@
 // ENCODER
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B6 }
+#define ENCODER_DIRECTION_FLIP
+
+// Locking support
+#define LOCKING_SUPPORT_ENABLE
+#define LOCKING_RESYNC_ENABLE

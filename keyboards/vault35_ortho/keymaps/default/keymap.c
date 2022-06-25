@@ -45,3 +45,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     //|--------+--------+--------+--------+--------+--------+--------|
   )
 };
+
+// ENCODER
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { 
+      switch(biton32(layer_state)){
+        case 0:
+          if (clockwise) {
+              tap_code(KC_UP);
+          } else {
+              tap_code(KC_DOWN);
+          }
+          break;
+      }
+    }
+    if (index == 1) { 
+      switch(biton32(layer_state)){
+        case 0:
+          if (clockwise) {
+              tap_code(KC_RIGHT);
+          } else {
+              tap_code(KC_LEFT);
+          }
+          break;
+      }
+    }
+    return false;
+}
+
