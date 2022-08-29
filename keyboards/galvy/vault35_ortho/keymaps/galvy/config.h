@@ -10,8 +10,8 @@
 #define RETRO_TAPPING_PER_KEY
 
 // combo
-#define COMBO_COUNT 6
-#define COMBO_TERM 50
+#define COMBO_COUNT 9
+#define COMBO_TERM 30
 
 // OLED
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
