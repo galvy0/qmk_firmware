@@ -18,3 +18,4 @@ MOUSEKEY_ENABLE = yes # Mouse keys
 
 PS2_MOUSE_ENABLE = yes
 PS2_USE_USART = yes
+#PS2_USE_INT = yes
