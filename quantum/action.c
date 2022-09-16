@@ -522,6 +522,7 @@ void process_action(keyrecord_t *record, action_t action) {
                 case KC_MS_BTN1 ... KC_MS_BTN3:
 #        endif
                     register_button(event.pressed, MOUSE_BTN_MASK(action.key.code - KC_MS_BTN1));
+                    mousekey_send();
                     break;
 #    endif
                 default:
