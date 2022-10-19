@@ -5,14 +5,14 @@
 #define VENDOR_ID       0x1234
 #define PRODUCT_ID      0x5678
 #define DEVICE_VER      0x0002
-#define MANUFACTURER    glavh
-#define PRODUCT         JD45_ALPHA
+#define MANUFACTURER    glavy
+#define PRODUCT         VAULT35_ALPHA
 
 #define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#define MATRIX_COLS 11
 
-#define MATRIX_ROW_PINS { B7, F6, B6, C6 }
-#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, B0, B5, B4, D7, D6, D4, D3 }
+#define MATRIX_ROW_PINS { F1, B3, F5, F4 }
+#define MATRIX_COL_PINS { F0, B0, C7, C6, B6, D3, B5, B4, D7, D6, D4 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -26,8 +26,8 @@
 //#define OLED_TIMEOUT 300000
 
 // ENCODER
-//#define ENCODERS_PAD_A { C6 }
-//#define ENCODERS_PAD_B { C7 }
+//#define ENCODERS_PAD_A { B2 }
+//#define ENCODERS_PAD_B { B1 }
 //#define ENCODER_RESOLUTION 4
 
 // trackpoint
@@ -81,7 +81,7 @@
 #define RETRO_TAPPING_PER_KEY
 
 // combo
-#define COMBO_COUNT 6
+#define COMBO_COUNT 14
 #define COMBO_TERM 50
 
 // auto shift

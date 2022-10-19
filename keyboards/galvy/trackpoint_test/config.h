@@ -69,6 +69,9 @@
 #define PS2_INT_VECT   INT2_vect
 #endif
 
+//#define PS2_MOUSE_USE_REMOTE_MODE
+//#define PS2_MOUSE_SCROLL_BTN_MASK 0
+
 #define MATRIX_COL_PINS { F1, F4, F5 }
 #define MATRIX_ROW_PINS { F0 }
 
@@ -79,3 +82,4 @@
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
+

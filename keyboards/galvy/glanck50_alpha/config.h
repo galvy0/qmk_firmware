@@ -5,15 +5,14 @@
 #define VENDOR_ID       0x1234
 #define PRODUCT_ID      0x0001
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    glavh
-#define PRODUCT         glanck50
+#define MANUFACTURER    glavy
+#define PRODUCT         glanck50_alpha
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 
-#define MATRIX_ROW_PINS { B1, D4, D2, D3, F4 }
-#define MATRIX_COL_PINS { F5, C7, F1, F0, B3, C6, D7, E6, B4, B5, B7, D5 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { F0, F4, F5, F7, B1 }
+#define MATRIX_COL_PINS { F6, B6, F1, C7, D5, B7, D7, B5, B4, E6, C6, D4 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -27,8 +26,8 @@
 #define OLED_TIMEOUT 300000
 
 // ENCODER
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B6 }
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B2 }
 #define ENCODER_RESOLUTION 4
 
 
