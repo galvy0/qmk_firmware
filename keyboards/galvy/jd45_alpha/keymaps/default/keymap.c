@@ -58,7 +58,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_DEF] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-LT(L_TRP,KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+LT(L_TRP,KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,LT(L_TRP,KC_I),KC_O,  KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
@@ -138,6 +138,8 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
             return false;
         case LT(L_NAV,KC_DOT):
             return false;
+        case LT(L_TRP,KC_I):
+            return false;
         case LT(L_TRP,KC_ESC):
             return false;
         // default true
@@ -153,6 +155,8 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         case LT(L_NAV,KC_DOT):
             return false;
         case LT(5,KC_BSPC):
+            return false;
+        case LT(L_TRP,KC_I):
             return false;
         case LT(L_TRP,KC_ESC):
             return false;
@@ -189,6 +193,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 175;
         case LT(L_NAV,KC_DOT):
             return 175;
+        case LT(L_TRP,KC_I):
+            return 175;
         case LT(L_TRP,KC_ESC):
             return 175;
         // default
@@ -197,6 +203,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+/*
 #if defined PS2_MOUSE_ENABLE && defined MOUSEKEY_ENABLE
 
 static uint16_t mh_auto_buttons_timer;
@@ -229,4 +236,5 @@ void matrix_scan_user(void) {
 }
 
 #endif // defined MH_AUTO_BUTTONS && defined PS2_MOUSE_ENABLE && #defined MOUSEKEY_ENABLE
+*/
 

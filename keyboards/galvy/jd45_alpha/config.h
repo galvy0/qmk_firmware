@@ -68,7 +68,7 @@
 #endif
 
 #define MH_AUTO_BUTTONS_TIMEOUT 500
-#define PS2_MOUSE_ENABLE_SCROLLING
+//#define PS2_MOUSE_ENABLE_SCROLLING
 
 // mod tap setting
 // global
