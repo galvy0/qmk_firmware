@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Alpha Stagger vault35",
+    "manufacturer": "Galvy",
+    "url": "",
+    "maintainer": "galvy0",
+    "usb": {
+        "vid": "0x1234",
+        "pid": "0x5678",
+        "device_version": "0.0.1"
+    }
+}

@@ -30,4 +30,5 @@ OLED_DRIVER = SSD1306
 
 # trackpoint
 PS2_MOUSE_ENABLE = yes
-PS2_USE_USART = yes
+PS2_ENABLE = yes
+PS2_DRIVER = usart

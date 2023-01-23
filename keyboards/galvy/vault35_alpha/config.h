@@ -2,12 +2,6 @@
 
 #include "config_common.h"
 
-#define VENDOR_ID       0x1234
-#define PRODUCT_ID      0x5678
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    glavy
-#define PRODUCT         VAULT35_ALPHA
-
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 11
 
@@ -31,7 +25,7 @@
 //#define ENCODER_RESOLUTION 4
 
 // trackpoint
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
