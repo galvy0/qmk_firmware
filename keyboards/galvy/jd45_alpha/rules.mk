@@ -19,7 +19,7 @@ NKRO_ENABLE = yes # Enable N-Key Rollover
 LTO_ENABLE = no
 KEY_LOCK_ENABLE = yes
 WPM_ENABLE = no
-COMBO_ENABLE = yes
+COMBO_ENABLE = no
 
 # ENCODER
 ENCODER_ENABLE = no
