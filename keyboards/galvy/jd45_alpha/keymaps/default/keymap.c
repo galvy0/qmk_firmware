@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-#include <math.h>
 
 #if defined PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
@@ -22,8 +20,15 @@
 enum custom_keycodes {
   RPIPE = SAFE_RANGE, RASGN, // R macros
   KORLN,
-  VIMSV,VIMQT // vim macros
+  VIMSV,VIMQT, // vim macros
+  TD_ALT_GUI = 0
 };
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for ALT, twice for GUI
+  [TD_ALT_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
   switch (keycode) {    
     case RPIPE:        
@@ -62,10 +67,11 @@ LT(L_TRP,KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,   
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-      KC_LALT,LT(L_NAV,KC_Z),KC_X,  KC_C,    KC_V,    KC_B,             KC_B,    KC_N,    KC_M, KC_COMM, LT(L_NAV,KC_DOT),KC_ENT,
+TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X, KC_C,    KC_V,    KC_B,             KC_B,    KC_N,    KC_M, KC_COMM, LT(L_NAV,KC_DOT),KC_ENT,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                MO(L_NAV),KC_LGUI,LT(L_LOW,KC_TAB),KC_LSFT,           KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT),MO(L_NAV)
+                      MO(L_NAV),  KC_TAB,MO(L_LOW),KC_LSFT,           KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT),KC_MUTE
                     //|--------+--------+--------+--------|--------|--------+--------+--------+--------|
+
   ), [L_TRP] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
       _______, KC_LSFT, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
@@ -104,7 +110,7 @@ LT(L_TRP,KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,   
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,          _______, _______, KC_MUTE, KC_MPRV, KC_MNXT, KC_VOLD,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        KC_LOCK, _______, _______, _______,        TG(L_NUM),_______, _______,TG(L_SPC)
+                      TG(L_SPC), _______, _______, QK_LOCK,        TG(L_NUM), _______, _______, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_NAV] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -124,7 +130,7 @@ LT(L_TRP,KC_ESC), KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,   
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,          _______,    KC_0,    KC_1,    KC_2,    KC_3, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        _______, _______, _______, _______,          _______, _______, _______,TG(L_NUM) 
+                      TG(L_NUM), _______, _______, _______,          _______, _______, _______, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   )
 
@@ -199,6 +205,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return 175;
         case LT(L_TRP,KC_ESC):
             return 175;
+        case TD(TD_ALT_GUI):
+            return 200;
         // default
         default:
             return 150;

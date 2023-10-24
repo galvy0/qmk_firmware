@@ -7,79 +7,6 @@
 #define L_NAV 4
 #define L_NUM 5
 
-#ifdef OLED_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  return OLED_ROTATION_90;
-};
-
-void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer\n"), false);
-    switch (layer_state) {
-        case L_DEF:
-            oled_write_ln_P(PSTR("-Def-"), false);
-            break;
-        case (int)pow(2,L_LOW):
-            oled_write_ln_P(PSTR("-Low-"), false);
-            break;
-        case (int)pow(2,L_RAI):
-            oled_write_ln_P(PSTR("-Rai-"), false);
-            break;
-        case (int)pow(2,L_SPC):
-            oled_write_ln_P(PSTR("-Spc-"), false);
-            break;
-        case (int)pow(2,L_NAV):
-            oled_write_ln_P(PSTR("-Nav-"), false);
-            break;
-        case (int)pow(2,L_NUM):
-            oled_write_ln_P(PSTR("-Num-"), false);
-            break;
-        default :
-            oled_write_ln_P(PSTR("-MUL-"), false);
-    }
-}
-
-void oled_render_logo(void) {
-//    static const char PROGMEM forty_logo[] = { 
-//      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x30, 0x9c, 0x8e, 0xff, 0xe0, 0x40, 0x40, 0x60, 
-//      0x60, 0x40, 0x40, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-//      0x80, 0xe0, 0xf0, 0x98, 0x8e, 0xe3, 0xf9, 0x8e, 0x87, 0x81, 0x81, 0xff, 0x80, 0x80, 0x80, 0x80, 
-//      0x80, 0x80, 0x80, 0x80, 0x80, 0x81, 0x83, 0x8e, 0xbc, 0xf0, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 
-//      0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1f, 0x71, 0xe0, 0x80, 0xff, 0xff, 0x01, 0x01, 0x01, 0x01, 
-//      0x01, 0x01, 0x3d, 0x25, 0x2d, 0xbd, 0xc1, 0x71, 0x3d, 0x8f, 0xe1, 0x39, 0x1d, 0x07, 0x03, 0x00, 
-//      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x7f, 0x7f, 0x02, 0x02, 0x06, 0x06, 
-//      0x06, 0x06, 0x02, 0x03, 0x03, 0x61, 0x38, 0x1c, 0x07, 0x03, 0x00, 0x30, 0x78, 0x48, 0x78, 0x30
-//    };
-    static const char PROGMEM phoenix[] = { 
-      0x00, 0x80, 0xc0, 0xc0, 0xe0, 0x60, 0x60, 0x30, 0x30, 0x18, 0x18, 0x98, 0xcc, 0xec, 0x7c, 0x3e, 
-      0x06, 0x06, 0x06, 0x03, 0x83, 0x83, 0xc3, 0xc3, 0xc3, 0xe3, 0x63, 0x73, 0x3b, 0x1f, 0x1e, 0x06, 
-      0x01, 0x01, 0x00, 0x80, 0xc0, 0xc0, 0xf0, 0x78, 0x3c, 0x3e, 0x3f, 0x1f, 0x1d, 0x0c, 0x0c, 0x0e, 
-      0x06, 0x06, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-      0x00, 0x08, 0x0e, 0x07, 0x03, 0x01, 0x80, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0x60, 0x60, 0x60, 
-      0x20, 0x30, 0x30, 0x30, 0x18, 0x18, 0x98, 0x98, 0x8c, 0x8c, 0x8e, 0x06, 0x07, 0x03, 0x01, 0x00, 
-      0x00, 0x1c, 0xfe, 0xfe, 0xff, 0x83, 0x1b, 0xf9, 0x79, 0x6d, 0x6c, 0x26, 0x36, 0x36, 0x36, 0x32, 
-      0x13, 0x13, 0x13, 0x11, 0x11, 0x19, 0x19, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-      0x00, 0x00, 0x00, 0x07, 0x3f, 0x3f, 0x00, 0x10, 0x1a, 0x1b, 0x1b, 0x1b, 0x19, 0x19, 0x09, 0x09, 
-      0x09, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    };
-    oled_write_raw_P(phoenix, sizeof(phoenix));
-}
-
-void oled_render_caps_state(void){
-    // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_ln_P(led_state.caps_lock ? PSTR("\n=CAPS\n") : PSTR("\n    \n\n"), false);
-}
-
-bool oled_task_user(void) {
-    oled_render_layer_state();
-    oled_render_caps_state();
-    oled_render_logo();
-    return true;
-};
-#endif // OLED_ENABLE
-
 // macros
 enum custom_keycodes {
   RPIPE = SAFE_RANGE, RASGN, // R macros
@@ -87,12 +14,12 @@ enum custom_keycodes {
   VIMSV,VIMQT, // vim macros
   TD_ALT_GUI = 0
 };
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
   // Tap once for ALT, twice for GUI
   [TD_ALT_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
 };
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
   switch (keycode) {    
     case RPIPE:        
@@ -123,17 +50,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }    
   return true;
 };
- 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_DEF] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
-		 	 KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+       KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,  KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
 TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X, KC_C,    KC_V,    KC_B,             KC_B,    KC_N,    KC_M, KC_COMM, LT(L_NAV,KC_DOT),KC_ENT,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                			MO(L_NAV),  KC_TAB,MO(L_LOW),KC_LSFT,           KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT),KC_MUTE
+                      MO(L_NAV),  KC_TAB,MO(L_LOW),KC_LSFT,           KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT), KC_MUTE
                     //|--------+--------+--------+--------|--------|--------+--------+--------+--------|
   ), [L_LOW] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -188,6 +115,17 @@ TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X, KC_C,    KC_V,    KC_B,             KC_B,   
   )
 
 };
+// Encoder
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [L_DEF] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [L_LOW] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [L_RAI] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [L_SPC] =   { ENCODER_CCW_CW(KC_LEFT, KC_RGHT), ENCODER_CCW_CW(KC_LEFT, KC_RGHT)  },
+    [L_NAV] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [L_NUM] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
+};
+#endif
 
 // MOD TAP settings
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
@@ -218,9 +156,9 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // default true - no auto-hold with double tap, but allow using hold right after using tap
         case LT(L_NAV,KC_Z):
             return false;
-        // default true - no auto-hold with double tap, but allow using hold right after using tap
         default:
             return true;
     }

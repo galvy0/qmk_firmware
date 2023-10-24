@@ -71,9 +71,15 @@ bool oled_task_user(void) {
 enum custom_keycodes {
   RPIPE = SAFE_RANGE, RASGN, // R macros
   KORLN,
-  VIMSV,VIMQT // vim macros
+  VIMSV,VIMQT, // vim macros
+  TD_ALT_GUI = 0
 };
 
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for ALT, twice for GUI
+  [TD_ALT_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
+};
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
@@ -118,9 +124,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-      KC_LALT,LT(L_NAV,KC_Z),KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,LT(L_NAV,KC_DOT),  KC_ENT,
+TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,LT(L_NAV,KC_DOT),  KC_ENT,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-               MO(L_NAV), KC_LGUI,LT(L_LOW,KC_TAB),KC_LSFT, KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT)
+               MO(L_NAV),KC_LTAB,MO(L_LOW),KC_LSFT, KC_SPC,MO(L_RAI),LT(L_SPC,KC_RALT)
                     //|--------+--------+--------+--------+--------+--------+--------|
   ), [L_GAM] = LAYOUT(
   //|-----------------------------------------------------------------------------------------------------------|
