@@ -1,0 +1,10 @@
+# OLED
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
+
+# trackpoint
+PS2_MOUSE_ENABLE = no
+PS2_USE_USART = no
+
+# Tap dance
+TAP_DANCE_ENABLE = yes
