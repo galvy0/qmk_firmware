@@ -29,6 +29,4 @@ OLED_ENABLE = no
 OLED_DRIVER = SSD1306
 
 # trackpoint
-PS2_MOUSE_ENABLE = yes
-PS2_ENABLE = yes
-PS2_DRIVER = usart
+# PS2 config moved to keyboard.json (ps2.enabled, ps2.driver, ps2.clock_pin, ps2.data_pin)

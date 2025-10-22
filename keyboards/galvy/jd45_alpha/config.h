@@ -1,12 +1,9 @@
 #pragma once
 
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
+#pragma once
 
-#define MATRIX_ROW_PINS { B7, F6, B6, C6 }
-#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, B0, B5, B4, D7, D6, D4, D3 }
-
-#define DIODE_DIRECTION COL2ROW
+/* Hardware mapping moved to keyboard.json where possible. Keep low-level
+    macros and register-level PS/2 USART code here. */
 
 #define DEBOUNCE 5
 
@@ -64,14 +61,5 @@
 
 // mod tap setting
 
-// per key
-#define PERMISSIVE_HOLD_PER_KEY
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define TAPPING_TERM_PER_KEY
-#define RETRO_TAPPING_PER_KEY
-
-// combo
-#define COMBO_TERM 50
-
-// auto shift
-#define AUTO_SHIFT_TIMEOUT_PER_KEY
+// per-key tapping/combo settings moved to keyboard.json
+// (retained here only if you need C-level overrides)
