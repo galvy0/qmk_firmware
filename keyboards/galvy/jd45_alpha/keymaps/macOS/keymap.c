@@ -1,13 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#if defined PS2_MOUSE_ENABLE
-#include "ps2_mouse.h"
-#endif
-
-#if defined MOUSEKEY_ENABLE
-#include "mousekey.h"
-#endif
-
 #define L_DEF 0
 #define L_TRP 1
 #define L_LOW 2
@@ -15,6 +7,79 @@
 #define L_SPC 4
 #define L_NAV 5
 #define L_NUM 6
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  return OLED_ROTATION_90;
+};
+
+void oled_render_layer_state(void) {
+    oled_write_P(PSTR("Layer\n"), false);
+    switch (layer_state) {
+        case L_DEF:
+            oled_write_ln_P(PSTR("-Def-"), false);
+            break;
+        case (int)pow(2,L_LOW):
+            oled_write_ln_P(PSTR("-Low-"), false);
+            break;
+        case (int)pow(2,L_RAI):
+            oled_write_ln_P(PSTR("-Rai-"), false);
+            break;
+        case (int)pow(2,L_SPC):
+            oled_write_ln_P(PSTR("-Spc-"), false);
+            break;
+        case (int)pow(2,L_NAV):
+            oled_write_ln_P(PSTR("-Nav-"), false);
+            break;
+        case (int)pow(2,L_NUM):
+            oled_write_ln_P(PSTR("-Num-"), false);
+            break;
+        default :
+            oled_write_ln_P(PSTR("-MUL-"), false);
+    }
+}
+
+void oled_render_logo(void) {
+//    static const char PROGMEM forty_logo[] = {
+//      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x30, 0x9c, 0x8e, 0xff, 0xe0, 0x40, 0x40, 0x60,
+//      0x60, 0x40, 0x40, 0xc0, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//      0x80, 0xe0, 0xf0, 0x98, 0x8e, 0xe3, 0xf9, 0x8e, 0x87, 0x81, 0x81, 0xff, 0x80, 0x80, 0x80, 0x80,
+//      0x80, 0x80, 0x80, 0x80, 0x80, 0x81, 0x83, 0x8e, 0xbc, 0xf0, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00,
+//      0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1f, 0x71, 0xe0, 0x80, 0xff, 0xff, 0x01, 0x01, 0x01, 0x01,
+//      0x01, 0x01, 0x3d, 0x25, 0x2d, 0xbd, 0xc1, 0x71, 0x3d, 0x8f, 0xe1, 0x39, 0x1d, 0x07, 0x03, 0x00,
+//      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x7f, 0x7f, 0x02, 0x02, 0x06, 0x06,
+//      0x06, 0x06, 0x02, 0x03, 0x03, 0x61, 0x38, 0x1c, 0x07, 0x03, 0x00, 0x30, 0x78, 0x48, 0x78, 0x30
+//    };
+    static const char PROGMEM phoenix[] = {
+      0x00, 0x80, 0xc0, 0xc0, 0xe0, 0x60, 0x60, 0x30, 0x30, 0x18, 0x18, 0x98, 0xcc, 0xec, 0x7c, 0x3e,
+      0x06, 0x06, 0x06, 0x03, 0x83, 0x83, 0xc3, 0xc3, 0xc3, 0xe3, 0x63, 0x73, 0x3b, 0x1f, 0x1e, 0x06,
+      0x01, 0x01, 0x00, 0x80, 0xc0, 0xc0, 0xf0, 0x78, 0x3c, 0x3e, 0x3f, 0x1f, 0x1d, 0x0c, 0x0c, 0x0e,
+      0x06, 0x06, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x08, 0x0e, 0x07, 0x03, 0x01, 0x80, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0x60, 0x60, 0x60,
+      0x20, 0x30, 0x30, 0x30, 0x18, 0x18, 0x98, 0x98, 0x8c, 0x8c, 0x8e, 0x06, 0x07, 0x03, 0x01, 0x00,
+      0x00, 0x1c, 0xfe, 0xfe, 0xff, 0x83, 0x1b, 0xf9, 0x79, 0x6d, 0x6c, 0x26, 0x36, 0x36, 0x36, 0x32,
+      0x13, 0x13, 0x13, 0x11, 0x11, 0x19, 0x19, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x07, 0x3f, 0x3f, 0x00, 0x10, 0x1a, 0x1b, 0x1b, 0x1b, 0x19, 0x19, 0x09, 0x09,
+      0x09, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    };
+    oled_write_raw_P(phoenix, sizeof(phoenix));
+}
+
+void oled_render_caps_state(void){
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_ln_P(led_state.caps_lock ? PSTR("\n=CAPS\n") : PSTR("\n    \n\n"), false);
+}
+
+bool oled_task_user(void) {
+    oled_render_layer_state();
+    oled_render_caps_state();
+    oled_render_logo();
+    return true;
+};
+#endif // OLED_ENABLE
 
 // macros
 enum custom_keycodes {
@@ -29,57 +94,57 @@ tap_dance_action_t tap_dance_actions[] = {
   [TD_ALT_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LALT)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
-  switch (keycode) {    
-    case RPIPE:        
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RPIPE:
       if (record->event.pressed){
         SEND_STRING("%>%");
-      } 
-      break;    
-    case RASGN:        
+      }
+      break;
+    case RASGN:
       if (record->event.pressed){
-        SEND_STRING("<-");        
-      } 
-      break;    
-    case KORLN:        
+        SEND_STRING("<-");
+      }
+      break;
+    case KORLN:
       if (record->event.pressed){
         SEND_STRING(SS_LGUI(" ") SS_DELAY(200) SS_TAP(X_RALT));
-      } 
+      }
       break;
-    case VIMSV:        
+    case VIMSV:
       if (record->event.pressed){
         SEND_STRING(":w!");
-      } 
+      }
       break;
-    case VIMQT:        
+    case VIMQT:
       if (record->event.pressed){
         SEND_STRING(":q!");
-      } 
+      }
       break;
-    case MHOME:        
+    case MHOME:
       if (record->event.pressed){
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_LEFT) SS_UP(X_LGUI));
-      } 
+      }
       break;
-    case MEND:        
+    case MEND:
       if (record->event.pressed){
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_RIGHT) SS_UP(X_LGUI));
-      } 
+      }
       break;
-    case MUP:        
+    case MUP:
       if (record->event.pressed){
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_UP) SS_UP(X_LGUI));
-      } 
+      }
       break;
-    case MDN:        
+    case MDN:
       if (record->event.pressed){
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_DOWN) SS_UP(X_LGUI));
-      } 
+      }
       break;
-  }    
+  }
   return true;
 };
- 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_DEF] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -100,7 +165,7 @@ TD(TD_ALT_GUI),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,   
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        _______, _______, KC_BTN1, KC_BTN3,          KC_BTN2, _______, _______, _______
+                        _______, _______, MS_BTN1, MS_BTN3,          MS_BTN2, _______, _______, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_LOW] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -159,7 +224,7 @@ TD(TD_ALT_GUI),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,             KC_H,   
 // MOD TAP settings
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Favor tapping 
+        // Favor tapping
         case LT(L_NAV,KC_Z):
             return false;
         case LT(L_NAV,KC_DOT):
@@ -210,9 +275,9 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-// tapping term 
+// tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) { 
+    switch (keycode) {
         // low tapping term favors hold
         // high tapping term favors tap
         case LALT_T(KC_ESC):

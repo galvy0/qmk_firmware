@@ -4,15 +4,6 @@
 
 #define XXX KC_NO
 
-#define LAYOUT( \
-    k00, k01, k02, k03, k04, k05,      k06, k07, k08, k09, k0A, k0B, \
-    k10, k11, k12, k13, k14, k15,      k16, k17, k18, k19, k1A, k1B, \
-    k20, k21, k22, k23, k24, k25,      k26, k27, k28, k29, k2A, k2B, \
-            k31,   k32, k33, k34,      k37, k38, k39,   k3A \
-) { \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B }, \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B }, \
-    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B }, \
-    { XXX, k31, k32, k33, k34, XXX, XXX, k37, k38, k39, k3A, XXX } \
-}
+// Layout macro intentionally removed; layout defined in keyboard.json as a JSON layout.
+// If you need a C macro for legacy keymaps, restore an equivalent LAYOUT macro here.
 

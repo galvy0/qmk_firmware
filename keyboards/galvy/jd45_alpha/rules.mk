@@ -26,7 +26,7 @@ ENCODER_ENABLE = no
 
 # OLED
 OLED_ENABLE = no
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
 
 # trackpoint
 # PS2 config moved to keyboard.json (ps2.enabled, ps2.driver, ps2.clock_pin, ps2.data_pin)

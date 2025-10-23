@@ -21,8 +21,11 @@
 
 // trackpoint
 #ifdef PS2_DRIVER_USART
-#define PS2_CLOCK_PIN   D5
-#define PS2_DATA_PIN    D2
+    /* PS/2 USART low-level register macros retained here. Pin numbers are
+       provided in keyboard.json (ps2.clock_pin / ps2.data_pin) and will be
+       used by the build tooling. If you need to override pins at the C-level
+       keep defines here, but avoid duplicating simple pin defs to prevent
+       validator warnings. */
 
     /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
     /* set DDR of CLOCK as input to be slave */

@@ -29,37 +29,37 @@ tap_dance_action_t tap_dance_actions[] = {
   [TD_ALT_GUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {    
-  switch (keycode) {    
-    case RPIPE:        
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case RPIPE:
       if (record->event.pressed){
         SEND_STRING("%>%");
-      } 
-      break;    
-    case RASGN:        
+      }
+      break;
+    case RASGN:
       if (record->event.pressed){
-        SEND_STRING("<-");        
-      } 
-      break;    
-    case KORLN:        
+        SEND_STRING("<-");
+      }
+      break;
+    case KORLN:
       if (record->event.pressed){
         SEND_STRING(SS_LGUI(" ") SS_DELAY(200) SS_TAP(X_RALT));
-      } 
+      }
       break;
-    case VIMSV:        
+    case VIMSV:
       if (record->event.pressed){
         SEND_STRING(":w!");
-      } 
+      }
       break;
-    case VIMQT:        
+    case VIMQT:
       if (record->event.pressed){
         SEND_STRING(":q!");
-      } 
+      }
       break;
-  }    
+  }
   return true;
 };
- 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [L_DEF] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -80,7 +80,7 @@ TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X, KC_C,    KC_V,    KC_B,             KC_B,   
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------|
-                        _______, _______, KC_BTN1, KC_BTN3,          KC_BTN2, _______, _______, _______
+                        _______, _______, MS_BTN1, MS_BTN3,          MS_BTN2, _______, _______, _______
                     //|--------+--------+--------+--------|        |--------+--------+--------+--------|
   ), [L_LOW] = LAYOUT(
   //|-----------------------------------------------------|        |-----------------------------------------------------|
@@ -139,7 +139,7 @@ TD(TD_ALT_GUI),LT(L_NAV,KC_Z),KC_X, KC_C,    KC_V,    KC_B,             KC_B,   
 // MOD TAP settings
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Favor tapping 
+        // Favor tapping
         case LT(L_NAV,KC_Z):
             return false;
         case LT(L_NAV,KC_DOT):
@@ -190,9 +190,9 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
-// tapping term 
+// tapping term
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) { 
+    switch (keycode) {
         // low tapping term favors hold
         // high tapping term favors tap
         case LALT_T(KC_ESC):
